@@ -1,0 +1,73 @@
+{
+	"name": "Sales_Parquet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorageIntegrationRuntime",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"schemaname": {
+				"type": "string"
+			},
+			"tablename": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@{concat(dataset().tablename,'.parquet')}",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@{concat(dataset().schemaname, '/',dataset().tablename)}",
+					"type": "Expression"
+				},
+				"fileSystem": "bronze"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "BusinessEntityID",
+				"type": "INT32"
+			},
+			{
+				"name": "Name",
+				"type": "UTF8"
+			},
+			{
+				"name": "AddressType",
+				"type": "UTF8"
+			},
+			{
+				"name": "AddressLine1",
+				"type": "UTF8"
+			},
+			{
+				"name": "AddressLine2",
+				"type": "UTF8"
+			},
+			{
+				"name": "City",
+				"type": "UTF8"
+			},
+			{
+				"name": "StateProvinceName",
+				"type": "UTF8"
+			},
+			{
+				"name": "PostalCode",
+				"type": "UTF8"
+			},
+			{
+				"name": "CountryRegionName",
+				"type": "UTF8"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
